@@ -4,3 +4,5 @@ __pycache__/
 test/
 # VS Code config. 
 .vscode/
+# Egg info. 
+mail_sender.egg-info/
