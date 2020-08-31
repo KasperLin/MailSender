@@ -36,8 +36,8 @@ MailSender(
 ### Scripting
 
 ```bash
-$ send-mail config -u mymail@somewhere.com -p mypassword --server myserver
-$ send-mail send -to someone@somewhere.com --subject "Hey!" --content "How r u?"
+$ mail-sender config -u mymail@somewhere.com -p mypassword --server myserver
+$ mail-sender send -to someone@somewhere.com --subject "Hey!" --content "How r u?"
 ```
 
 # Appendix

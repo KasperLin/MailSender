@@ -7,5 +7,5 @@ setup(
     version      = __version__, 
     description  = "A Python E-mail Sender", 
     packages     = find_packages(exclude=["test"]), 
-    entry_points = {"console_scripts": ["send-mail=mail_sender.cli.cli:run"]}, 
+    entry_points = {"console_scripts": ["mail-sender=mail_sender.cli.cli:run"]}, 
 )

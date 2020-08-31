@@ -13,7 +13,7 @@ def run() -> None:
         server   = args.server, 
     )
 
-    elif args.command == "send": MailSender(
+    else: MailSender(
         sender   = args.user, 
         password = args.password, 
         server   = args.server, 
@@ -23,5 +23,3 @@ def run() -> None:
         content      = args.content, 
         content_type = args.content_type, 
     )
-
-    else: raise NotImplementedError

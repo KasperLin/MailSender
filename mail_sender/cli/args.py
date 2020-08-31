@@ -6,7 +6,8 @@ args = argparse.ArgumentParser()
 
 args.add_argument(
     "command", type=str, default="send", 
-    help="Command, either `send` or `config`.", 
+    help="Command, `config` for configure acc & psw, "
+    "any other commands will send the mail.", 
 )
 args.add_argument(
     "--user", "-u", type=str, default=None, 
