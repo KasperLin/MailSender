@@ -50,7 +50,7 @@ def get_receivers(sender, to:list) -> list:
 		else: assert isinstance(to, list)
 		receivers += to
 
-	msg = "Receivers: \n" if len(receivers) > 1 else "Receiver: "
+	msg = "Receivers: \n" if len(receivers) > 1 else "Receiver: \n"
 	for receiver in receivers: msg += f"{receiver}\n"
 	LOG.info(msg)
 

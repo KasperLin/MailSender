@@ -1,3 +1,3 @@
-from mail_sender.sender import MailSender
+from mail_sender.send import MailSender
 
-__version__ = "0.1.1.0"
+__version__ = "0.1.1.1"
