@@ -4,8 +4,9 @@ from email.header         import Header
 from email.mime.text      import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from mail_sender.init    import MailSender
 from mail_sender.utility import LOG
+from mail_sender.init    import MailSender
+from mail_sender.html    import CSS, HTML
 
 ENCODING = "utf-8"
 
@@ -20,7 +21,7 @@ class MailSender(MailSender):
 		content_type : str  = "html",
 	) -> bool:
 
-		receivers = self.get_receivers(to)
+		receivers = get_receivers(self.sender, to)
 
 		message = MIMEMultipart()
 
@@ -30,24 +31,27 @@ class MailSender(MailSender):
 
 		message.attach(MIMEText(content, content_type, ENCODING))
 
+		if content_type == "html": # apply GitHub CSS for better style 
+			content = HTML.format(style=CSS, content=message)
+
 		self.server.sendmail(self.sender, receivers, message.as_string())
 
 		LOG.info(f"Mail ({header}) sent to {len(receivers)} users.")
 		return True
 
 
-	def get_receivers(self, to:list) -> list:
-		''' Collect receivers' emails & report them '''
+def get_receivers(sender, to:list) -> list:
+	''' Collect receivers' emails & report them '''
 
-		receivers = [self.sender] # always send to myself
+	receivers = [sender] # always send to sender himself
 
-		if to is not None:
-			if isinstance(to, str): to = [to]
-			else: assert isinstance(to, list)
-			receivers += to
+	if to is not None:
+		if isinstance(to, str): to = [to]
+		else: assert isinstance(to, list)
+		receivers += to
 
-		msg = f"Receivers: \n"
-		for receiver in receivers: msg += f"{receiver}\n"
-		LOG.info(msg)
+	msg = "Receivers: \n" if len(receivers) > 1 else "Receiver: "
+	for receiver in receivers: msg += f"{receiver}\n"
+	LOG.info(msg)
 
-		return receivers    
+	return receivers    
