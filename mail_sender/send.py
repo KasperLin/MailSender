@@ -29,11 +29,10 @@ class MailSender(MailSender):
 		message["From"]    = self.sender
 		message["To"]      = ','.join(receivers)
 
-		message.attach(MIMEText(content, content_type, ENCODING))
-
 		if content_type == "html": # apply GitHub CSS for better style 
-			content = HTML_HEAD + message + HTML_TAIL
+			content = HTML_HEAD + content + HTML_TAIL
 
+		message.attach(MIMEText(content, content_type, ENCODING))
 		self.server.sendmail(self.sender, receivers, message.as_string())
 
 		LOG.info(f"Mail ({header}) sent to {len(receivers)} users.")
