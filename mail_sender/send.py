@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 
 from mail_sender.utility import LOG
 from mail_sender.init    import MailSender
-from mail_sender.html    import CSS, HTML
+from mail_sender.html    import HTML_HEAD, HTML_TAIL
 
 ENCODING = "utf-8"
 
@@ -15,9 +15,9 @@ class MailSender(MailSender):
 
 	def send(
 		self,
+		content      : str  = "This is a mail sent by Python.",
 		to           : list = None,
 		header       : str  = "A Mail Sent by Python",
-		content      : str  = "This is a mail sent by Python.",
 		content_type : str  = "html",
 	) -> bool:
 
@@ -32,7 +32,7 @@ class MailSender(MailSender):
 		message.attach(MIMEText(content, content_type, ENCODING))
 
 		if content_type == "html": # apply GitHub CSS for better style 
-			content = HTML.format(style=CSS, content=message)
+			content = HTML_HEAD + message + HTML_TAIL
 
 		self.server.sendmail(self.sender, receivers, message.as_string())
 
