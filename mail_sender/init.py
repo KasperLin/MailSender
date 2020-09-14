@@ -12,7 +12,7 @@ from mail_sender.server  import get_server, login_server
 class MailSender():
 
     def __init__(
-        self, sender:str=None, password:str=None, server:str=None,
+        self, sender:str=None, password:str=None, server:str="qq",
         logging_level:int=logging.INFO,
     ) -> None:
         self.set_logging_level(logging_level)
