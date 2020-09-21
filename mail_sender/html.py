@@ -460,5 +460,5 @@ HTML_HEAD = """
 
 HTML_TAIL = """
 </body>
-<html>
+</html>
 """
