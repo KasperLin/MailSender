@@ -1,0 +1,3 @@
+[console_scripts]
+mailsender = mailsender.cli.cli:run
+

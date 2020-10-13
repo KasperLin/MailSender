@@ -1,18 +1,18 @@
-''' Configuration in `~/.mail_sender_config` '''
+''' Configuration in `~/.mailsender_config` '''
 
 import os
 import pathlib
 
-from mail_sender.utility import LOG
+from mailsender.utility import LOG
 
-CONFIG = os.path.join(str(pathlib.Path.home()), ".mail_sender_config")
+CONFIG = os.path.join(str(pathlib.Path.home()), ".mailsender_config")
 
 
 def get_config(user:str=None):
-    ''' Get configurations (acc & psw) from `~/.mail_sender_config` '''
+    ''' Get configurations (acc & psw) from `~/.mailsender_config` '''
 
     if not os.path.isfile(CONFIG): 
-        LOG.info(f"Create file `~/.mail_sender_config` to save acc & psw.")
+        LOG.info(f"Create file `~/.mailsender_config` to save acc & psw.")
         with open(CONFIG, 'w') as f: f.write("")
 
     with open(CONFIG, 'r') as f: config:str = f.read()
@@ -37,7 +37,7 @@ def get_config(user:str=None):
 
 
 def to_config(user, password) -> None:
-    ''' Write config to `~/.mail_sender_config` '''
+    ''' Write config to `~/.mailsender_config` '''
     config = get_config("all")
 
     if user in config: LOG.warning(f"Config of {user} will be overwritten.")

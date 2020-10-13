@@ -4,9 +4,9 @@ from email.header         import Header
 from email.mime.text      import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from mail_sender.utility import LOG
-from mail_sender.init    import MailSender
-from mail_sender.html    import HTML_HEAD, HTML_TAIL
+from mailsender.utility import LOG
+from mailsender.init    import MailSender
+from mailsender.html    import HTML_HEAD, HTML_TAIL
 
 ENCODING = "utf-8"
 

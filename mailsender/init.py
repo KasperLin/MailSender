@@ -2,11 +2,11 @@
 
 import logging
 
-import mail_sender as ms
+import mailsender as ms
 
-from mail_sender.utility import LOG
-from mail_sender.config  import get_config, to_config
-from mail_sender.server  import get_server, login_server
+from mailsender.utility import LOG
+from mailsender.config  import get_config, to_config
+from mailsender.server  import get_server, login_server
 
 
 class MailSender():

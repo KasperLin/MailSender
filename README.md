@@ -20,7 +20,7 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 ### Interactive
 
 ```python
-from mail_sender import MailSender
+from mailsender import MailSender
 MailSender(
 	user     = "mymail@somewhere.com" , 
 	password = my_email_password, 
@@ -44,7 +44,7 @@ $ mail-sender send -to someone@somewhere.com --subject "Hey!" --content "How r u
 
 ## Configuration
 
-Your e-mail account & password info will be saved to `~/.mail_sender_config` , so you don't need to type account & password every time. 
+Your e-mail account & password info will be saved to `~/.mailsender_config` , so you don't need to type account & password every time. 
 
 The config file can be easily modified by yourself, as long as it follows formats below : 
 

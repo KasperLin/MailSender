@@ -1,0 +1,17 @@
+README.md
+setup.py
+mailsender/__init__.py
+mailsender/config.py
+mailsender/html.py
+mailsender/init.py
+mailsender/send.py
+mailsender/server.py
+mailsender/utility.py
+mailsender.egg-info/PKG-INFO
+mailsender.egg-info/SOURCES.txt
+mailsender.egg-info/dependency_links.txt
+mailsender.egg-info/entry_points.txt
+mailsender.egg-info/top_level.txt
+mailsender/cli/__init__.py
+mailsender/cli/args.py
+mailsender/cli/cli.py

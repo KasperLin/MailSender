@@ -2,7 +2,7 @@
 
 import smtplib
 
-from mail_sender.utility import LOG
+from mailsender.utility import LOG
 
 SERVER = {
     "smtp.exmail.qq.com": {

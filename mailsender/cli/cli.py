@@ -1,8 +1,8 @@
 ''' Command Line Interface of Mail Sender '''
 
-from mail_sender import MailSender
+from mailsender import MailSender
 
-from mail_sender.cli.args import args
+from mailsender.cli.args import args
 
 
 def run() -> None:

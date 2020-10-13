@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-from mail_sender.__init__ import __version__
+from mailsender.__init__ import __version__
 
 setup(
-    name         = "mail_sender", 
+    name         = "mailsender", 
     version      = __version__, 
     description  = "A Python E-mail Sender", 
     packages     = find_packages(exclude=["test"]), 
-    entry_points = {"console_scripts": ["mail-sender=mail_sender.cli.cli:run"]}, 
+    entry_points = {"console_scripts": ["mailsender=mailsender.cli.cli:run"]}, 
 )
