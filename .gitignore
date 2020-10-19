@@ -1,8 +1,4 @@
-# Python cache. 
-__pycache__/
-# Testing. 
 test/
-# VS Code config. 
 .vscode/
-# Egg info. 
-mail_sender.egg-info/
+*.egg-info/
+__pycache__/
