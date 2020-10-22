@@ -22,7 +22,7 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 ```python
 from mailsender import MailSender
 MailSender(
-	user     = "mymail@somewhere.com" , 
+	user     = "mymail@somewhere.com", 
 	password = my_email_password, 
     # server = "icloud",
 ).send(
@@ -36,8 +36,8 @@ MailSender(
 ### Scripting
 
 ```bash
-$ mail-sender config -u mymail@somewhere.com -p mypassword --server myserver
-$ mail-sender send -to someone@somewhere.com --subject "Hey!" --content "How r u?"
+$ mailsender config -u mymail@somewhere.com -p mypassword --server myserver
+$ mailsender send -to someone@somewhere.com --subject "Hey!" --content "How r u?"
 ```
 
 # Appendix
@@ -62,8 +62,8 @@ E-mail servers available :
 
 | Server          | Host                                   | Port |
 | --------------- | -------------------------------------- | ---- |
-| `exmail.qq.com` | Tencent Enterprise Mail (腾讯企业邮箱) | 465  |
+| `exmail.qq.com` | Tencent Enterprise Mail (腾讯企业邮箱)   | 465  |
 | `office365.com` | Outlook                                | 587  |
 | `mail.me.com`   | iCloud                                 | 587  |
 
-> You probably needs an "app-specific password" as your password. 
+> You probably needs an "app-specific password" as your password, instead of the actual password of the e-mail. 
