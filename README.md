@@ -8,6 +8,8 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 - Support both console scripting & python interactive environments
 - Easy to customize for your own use case 
 
+> If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you should simply checkout [server](#server) & [`server.py`](https://github.com/KasperLin/MailSender/blob/master/mailsender/server.py), which can get you going with the critical part of sending email. 
+
 # Getting Started
 
 ## Installation
