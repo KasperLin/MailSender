@@ -23,7 +23,7 @@ SERVERS:dict = {
 }
 
 
-def get_server(alias:str, address:str):
+def get_server(alias:str, address:str) -> tuple:
     ''' Get the E-mail server by its alias '''
     alias:str = _get_server_alias(alias, address)
     for name in SERVERS:
@@ -32,7 +32,7 @@ def get_server(alias:str, address:str):
             LOG.info(f"Server : {name}")
             method   = server["SMTP"]
             port:int = server["PORT"]
-            return method(name, port)
+            return name, method(name, port)
     raise RuntimeError(f"Unrecognized server: {alias}")
 
 

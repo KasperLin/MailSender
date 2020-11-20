@@ -5,7 +5,6 @@ A Friendly Python E-mail Sending Tool.
 Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html) & [`email`](https://docs.python.org/3/library/email.html) , but hopefully it can make life a bit easier.  
 
 - [Support servers](#server) include [Tencent Enterprise Mail（腾讯企业邮箱）](https://exmail.qq.com/) , [Outlook](https://exmail.qq.com/) , [iCloud](https://support.apple.com/en-us/HT201342) ... 
-- Support both console scripting & python interactive environments
 - Easy to customize for your own use case 
 
 > If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you should simply checkout [server](#server) & [`server.py`](https://github.com/KasperLin/MailSender/blob/master/mailsender/server.py), which can get you going with the critical part of sending email. 
@@ -19,27 +18,21 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 
 ## Basic Usage
 
-### Interactive
-
 ```python
 from mailsender import MailSender
+# Record your acc & psw in `~/.mailsender_config`. 
 MailSender(
-	user     = "mymail@somewhere.com", 
-	password = my_email_password, 
-    # server = "icloud",
-).send(
+	"mymail@somewhere.com", 
+	my_secret_password, 
+    server="icloud",
+)
+# Then you can simply send your mail.
+MailSender().send(
 	to      = ["someone@somewhere.com", "another@somewhere.com"], 
 	header  = "A Mail Sent by Python :)",
 	content = "Hi there !", 
     # content_type = "html",
 )
-```
-
-### Scripting
-
-```bash
-$ mailsender config -u mymail@somewhere.com -p mypassword --server myserver
-$ mailsender send -to someone@somewhere.com --subject "Hey!" --content "How r u?"
 ```
 
 # Appendix

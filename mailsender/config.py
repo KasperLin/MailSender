@@ -24,14 +24,17 @@ def write_config(data:dict) -> None:
 
 
 def _str2dict(data:str) -> dict:
-    ''' Parse Raw Config File into Dict: {Acc: Psw} '''
-    # Config format : acc@host.com:psw \n ...
+    ''' Parse Raw Config File into Dict: {Acc: {psw, server}} '''
     data:list = [x.split(':') for x in data.split('\n')]
-    data:dict = {acc: psw for acc, psw in data}
+    # [[acc, psw, server], ...]
+    data:dict = {x[0]: {"psw": x[1], "server": x[-1]} for x in data}
+    # {acc: {"psw": psw, "server": server}, ...}
     return data
 
 def _dict2str(data:dict) -> str:
-    ''' Parse Config Dict Back to Str: acc:psw '''
-    data:list = [[x, y] for x, y in zip(data.keys(), data.values())]
+    ''' Parse Config Dict Back to Str: acc:psw:server '''
+    data:list = [[x, data[x]["psw"], data[x]["server"]] for x in data.keys()]
+    # [[acc, psw, server], ...]
     data:str  = '\n'.join([':'.join(x) for x in data])
+    # acc:psw:server\n...
     return data
