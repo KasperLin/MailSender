@@ -29,10 +29,9 @@ def get_server(alias:str, address:str) -> tuple:
     for name in SERVERS:
         server:dict = SERVERS[name]
         if alias in server["ALIAS"]:
-            LOG.info(f"Server : {name}")
-            method   = server["SMTP"]
-            port:int = server["PORT"]
-            return name, method(name, port)
+            LOG.info(f"{address} ({name})")
+            get = server["SMTP"]; port:int = server["PORT"]
+            return name, get(name, port)
     raise RuntimeError(f"Unrecognized server: {alias}")
 
 
@@ -43,9 +42,8 @@ def _get_server_alias(alias:str, address:str) -> str:
     return alias.lower()
 
 
-def login_server(server, acc, psw):
+def login(server, acc, psw):
     ''' Login to the E-mail server by given acc & psw '''
-    LOG.info(f"Sender : {acc}")
     if   isinstance(server, smtplib.SMTP_SSL): server.login(acc, psw)
     elif isinstance(server, smtplib.SMTP)    : server=_login(server, acc, psw)
     return server

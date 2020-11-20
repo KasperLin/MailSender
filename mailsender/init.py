@@ -1,9 +1,9 @@
-''' Initialize & Connect to the E-mail Server '''
+''' Parse Config & Login to the E-mail Server '''
 
 import logging
 
 from mailsender.utility import LOG
-from mailsender.server  import get_server, login_server
+from mailsender.server  import get_server, login
 from mailsender.config  import read_config, write_config
 
 
@@ -23,7 +23,7 @@ class MailSender():
         try   : server, self.server = get_server(server, self.sender)
         except: raise RuntimeError("Fail to connect to server.")
 
-        try   : self.server = login_server(self.server, self.sender, psw)
+        try   : self.server = login(self.server, self.sender, psw)
         except: raise RuntimeError("Fail to login to server.")
 
         config[self.sender]["server"] = server # record server
@@ -35,15 +35,17 @@ class MailSender():
 
 def _parse_accpsw(acc:str, psw:str, config:dict) -> tuple:
     ''' Read Acc&Psw from Config File or User & Write them Back '''
-    nothin_given:bool = acc is None and psw is None
-    only_account:bool = acc is not None and psw is None
+    nothin_given:bool = acc is     None and psw is     None
+    only_account:bool = acc is not None and psw is     None
     both_given  :bool = acc is not None and psw is not None
+
     if   nothin_given: acc, psw = __use_first_account(config)
     elif only_account: acc, psw = __look_up_config(config, acc)
     elif both_given  : 
         if acc in config: LOG.info(f"(No need to specify password for {acc})")
         else            : config = __record_new(acc, psw, config)
     else: raise AssertionError
+    
     return acc, psw, config
 
 def __use_first_account(config:dict) -> tuple:

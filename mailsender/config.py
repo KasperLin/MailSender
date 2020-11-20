@@ -2,14 +2,16 @@
 
 import os
 
-from pathlib import Path
+from mailsender.utility import get_HOME, LOG
 
-PATH:str = os.path.join(str(Path.home()), ".mailsender_config")
+PATH:str = os.path.join(get_HOME(), ".mailsender_config")
 
 
 def read_config() -> dict:
-    ''' Read `~/.mailsender_config` '''
-    if not os.path.isfile(PATH): data = dict()
+    ''' Read `~/.mailsender_config` Config Dict '''
+    if not os.path.isfile(PATH): 
+        data = dict()
+        LOG.info("Create `~/.mailsender_config` config file.")
     else:
         with open(PATH) as f: data:str = f.read()
         if data == "": data = dict() # empty config file
