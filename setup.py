@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-
 from mailsender.__init__ import __version__
 
 setup(
@@ -7,5 +6,4 @@ setup(
     version      = __version__, 
     description  = "A Python E-mail Sender", 
     packages     = find_packages(exclude=["test"]), 
-    entry_points = {"console_scripts": ["mailsender=mailsender.cli.cli:run"]}, 
 )

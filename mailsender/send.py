@@ -1,4 +1,4 @@
-''' Send the Mail '''
+''' Send the Mail by Server '''
 
 from email.header         import Header
 from email.mime.text      import MIMEText
@@ -12,34 +12,28 @@ ENCODING = "utf-8"
 
 
 class MailSender(MailSender):
+    ''' A Friendly Python E-mail Sending Tool '''
 
-	def send(
-		self,
-		content      : str  = "This is a mail sent by Python.",
-		to           : list = None,
-		header       : str  = "A Mail Sent by Python",
-		content_type : str  = "html",
+    def send(self,
+		content      :str  = "This is a mail sent by Python.",
+		to           :list = None,
+		header       :str  = "A Mail Sent by Python",
+		content_type :str  = "html",
 	) -> bool:
-
-		receivers = get_receivers(self.sender, to)
-
-		message = MIMEMultipart()
-
-		message["Subject"] = Header(header, ENCODING).encode()
-		message["From"]    = self.sender
-		message["To"]      = ','.join(receivers)
-
-		if content_type == "html": # apply GitHub CSS for better style 
-			content = HTML_HEAD + content + HTML_TAIL
-
-		message.attach(MIMEText(content, content_type, ENCODING))
-		self.server.sendmail(self.sender, receivers, message.as_string())
-
-		LOG.info(f"Mail ({header}) sent to {len(receivers)} users.")
-		return True
+        receivers:list = _get_receivers(self.sender, to)
+        message:str = _get_message(
+            title   = header, 
+            from    = self.sender, 
+            to      = receivers, 
+            dtype   = content_type, 
+            content = content, 
+        )
+        self.server.sendmail(self.sender, receivers, message)
+        LOG.info(f"Mail ({header}) sent to {len(receivers)} users.")
+        return True
 
 
-def get_receivers(sender, to:list) -> list:
+def _get_receivers(sender, to:list) -> list:
 	''' Collect receivers' emails & report them '''
 
 	receivers = [sender] # always send to sender himself
@@ -53,4 +47,19 @@ def get_receivers(sender, to:list) -> list:
 	for receiver in receivers: msg += f"{receiver}\n"
 	LOG.info(msg)
 
-	return receivers    
+	return receivers
+
+
+def _get_message(title:str, from:str, to:list, dtype:str, content:str) -> str:
+    ''' Get E-mail Multipart Message '''
+    message:MIMEMultipart = MIMEMultipart()
+
+    message["Subject"] = Header(title, ENCODING).encode()
+    message["From"]    = from
+    message["To"]      = ','.join(to)
+
+    if dtype == "html": # apply GitHub CSS for better style
+        content = HTML_HEAD + content + HTML_TAIL
+
+    message.attach(MIMEText(content, dtype, ENCODING))
+    return message.as_string()
