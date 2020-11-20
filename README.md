@@ -6,8 +6,9 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 
 - [Support servers](#server) include [Tencent Enterprise Mail（腾讯企业邮箱）](https://exmail.qq.com/) , [Outlook](https://exmail.qq.com/) , [iCloud](https://support.apple.com/en-us/HT201342) ... 
 - Easy to customize for your own use case 
+- Render your HTML e-mail by GitHub-style markdown CSS
 
-> If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you should simply checkout [server](#server) & [`server.py`](https://github.com/KasperLin/MailSender/blob/master/mailsender/server.py), which can get you going with the critical part of sending email. 
+> If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you can simply checkout [server](#server) & [`server.py`](https://github.com/KasperLin/MailSender/blob/master/mailsender/server.py), which can get you going with the critical part of sending email by Python. 
 
 # Getting Started
 
@@ -18,20 +19,25 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 
 ## Basic Usage
 
+Record your account & password in `~/.mailsender_config`
+
 ```python
 from mailsender import MailSender
-# Record your acc & psw in `~/.mailsender_config`. 
 MailSender(
 	"mymail@somewhere.com", 
 	my_secret_password, 
-    server="icloud",
+    server="tencent",
 )
-# Then you can simply send your mail.
+```
+
+Once recorded, you can simply send your e-mail.
+
+```python
 MailSender().send(
-	to      = ["someone@somewhere.com", "another@somewhere.com"], 
-	header  = "A Mail Sent by Python :)",
 	content = "Hi there !", 
-    # content_type = "html",
+	to      = ["one@host.com", "another@host.com"], 
+	header  = "A Mail Sent by Python :)",
+    content_type = "html", # can be 'html' or 'plain'
 )
 ```
 
@@ -44,8 +50,8 @@ Your e-mail account & password info will be saved to `~/.mailsender_config` , so
 The config file can be easily modified by yourself, as long as it follows formats below : 
 
 ```
-acc1@host.com:password1
-acc2@host.com:password2
+acc1@host.com:password1:server1
+acc2@host.com:password2:server2
 ```
 
 - Every time you use a new account, the info will be append to the tail of the config file
