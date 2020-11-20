@@ -1,3 +1,10 @@
-from mailsender.send import MailSender
+import logging
+import mailsender as ms
 
-__version__ = "0.2.4"
+from mailsender.utility import LOG
+from mailsender.send    import MailSender # entry point
+
+__version__ = "0.2.4.0"
+
+LOG.setLevel(logging.INFO)
+LOG.info(f"<<< Mail Sender {ms.__version__} >>>")

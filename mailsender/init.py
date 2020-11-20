@@ -2,55 +2,50 @@
 
 import logging
 
-import mailsender as ms
-
 from mailsender.utility import LOG
-from mailsender.config  import get_config, to_config
 from mailsender.server  import get_server, login_server
+from mailsender.config  import read_config, write_config
 
 
 class MailSender():
+    ''' A Friendly Python E-mail Sending Tool '''
 
-    def __init__(
-        self, sender:str=None, password:str=None, server:str="qq",
+    def __init__(self, 
+        account :str=None, 
+        password:str=None, 
+        server  :str="qq",
         logging_level:int=logging.INFO,
     ) -> None:
-        self.set_logging_level(logging_level)
+        LOG.setLevel(logging_level)
+        config:dict = read_config()
+        self.sender, psw, config = _parse_accpsw(account, password, config)
 
-        LOG.info(f"<<< Mail Sender {ms.__version__} >>>")
-
-        user, password = self.config(sender, password)
-
-        if server is None: server = user.split("@")[-1].split(".")[0]
-        try   : self.server = get_server(server)
+        try   : self.server = get_server(server, self.sender)
         except: raise RuntimeError("Fail to connect to server.")
 
-        self.sender = user
-        try   : self.server = login_server(self.server, self.sender, password)
+        try   : self.server = login_server(self.server, self.sender, psw)
         except: raise RuntimeError("Fail to login to server.")
 
-    def set_logging_level(self, level:int) -> None: LOG.setLevel(int(level))
-
-
-    def config(self, user:str, password:str) -> None:
-        ''' Fetch (& save) e-mail account & password '''
-        config = get_config("all")
-
-        # Without a password, we can only read config
-        if password is None: user, password = get_config(user)
-
-        # If a password is given, there must be a user as well.
-        else:
-            if user in config: LOG.warning(f"""
-            Account {user} is already in the config, 
-            you should use it without passing password explicitly.
-            """)
-            assert isinstance(user, str) and user, \
-                "User must be given when password is given."
-            # Save to config since it maybe a new one.
-            to_config(user, password)
-
-        return user, password
+        write_config(config) # only write after successful connection
 
 
     def get_server(self): return self.server
+
+
+def _parse_accpsw(acc:str, psw:str, config:dict) -> tuple:
+    ''' Read Acc&Psw from Config File or User & Write them Back '''
+    nothin_given:bool = acc is None and psw is None
+    only_account:bool = acc is not None and psw is None
+    both_given  :bool = acc is not None and psw is not None
+    if nothin_given: 
+        assert config, "Acc & psw must be given."
+        acc:str = list(config.keys())[0]
+        psw:str = config[acc]
+    elif only_account:
+        assert acc in config, f"Need the password of account: {acc}"
+        psw:str = config[acc]
+    elif both_given:
+        if acc in config: 
+            LOG.info(f"You don't need to specify the password of {acc}")
+        config[acc] = psw # write it down
+    return acc, psw, config
