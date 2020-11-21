@@ -2,9 +2,15 @@
 
 import os
 
-from mailsender.utility import get_HOME, LOG
+from pathlib import Path
 
-PATH:str = os.path.join(get_HOME(), ".mailsender_config")
+from mailsender.utility import LOG
+
+def __get_HOME() -> str:
+    ''' Get Home Directory (`~/`) Path '''
+    return str(Path.home())
+
+PATH:str = os.path.join(__get_HOME(), ".mailsender_config")
 
 
 def read_config() -> dict:

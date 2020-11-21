@@ -1,8 +1,12 @@
 ''' Send the Mail by Server '''
 
+from email.header         import Header
+from email.mime.text      import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+from mailsender.utility import LOG
 from mailsender.init    import MailSender
 from mailsender.CSS     import HTML_HEAD, HTML_TAIL
-from mailsender.utility import LOG, get_Email, get_Header, get_Message
 
 
 class MailSender(MailSender):
@@ -47,12 +51,30 @@ def _get_message(
     ''' Get E-mail Multipart Message '''
     ENCODING = "utf-8"
 
-    message            = get_Message()
-    message["Subject"] = get_Header(title, ENCODING)
+    message            = __get_Message()
+    message["Subject"] = __get_Header(title, ENCODING)
     message["From"]    = sender
     message["To"]      = ','.join(to)
 
     # Apply CSS for better styling.
     if dtype == "html": content = HTML_HEAD + content + HTML_TAIL
 
-    return get_Email(message, content, dtype, ENCODING)
+    return __get_Email(message, content, dtype, ENCODING)
+
+
+def __get_Message() -> MIMEMultipart:
+    ''' Get E-mail Message Object '''
+    return MIMEMultipart()
+
+
+def __get_Header(title:str, encoding:str) -> str:
+    ''' Get E-mail Header '''
+    return Header(title, encoding).encode()
+
+
+def __get_Email(
+    message:MIMEMultipart, content:str, dtype:str, encoding:str, 
+) -> str:
+    ''' Get the Whole E-mail in String '''
+    message.attach(MIMEText(content, dtype, encoding))
+    return message.as_string()
