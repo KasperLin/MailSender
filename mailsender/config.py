@@ -6,7 +6,7 @@ from pathlib import Path
 
 from mailsender.utility import LOG
 
-PATH:str = os.path.join(str(Path.home()), ".mailsender_config")
+PATH:str = os.path.join(str(Path.home()), ".mailsender")
 
 
 def read_config() -> dict:
