@@ -2,9 +2,9 @@
 
 import logging
 
+from mailsender.config import read_config, write_config
+from mailsender.server import get_server, login
 from mailsender.utility import LOG
-from mailsender.server  import get_server, login
-from mailsender.config  import read_config, write_config
 
 
 class MailSender():

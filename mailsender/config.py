@@ -6,23 +6,19 @@ from pathlib import Path
 
 from mailsender.utility import LOG
 
-def __get_HOME() -> str:
-    ''' Get Home Directory (`~/`) Path '''
-    return str(Path.home())
-
-PATH:str = os.path.join(__get_HOME(), ".mailsender_config")
+PATH:str = os.path.join(str(Path.home()), ".mailsender_config")
 
 
 def read_config() -> dict:
     ''' Read `~/.mailsender_config` Config Dict '''
     if not os.path.isfile(PATH): 
-        data = dict()
+        config:dict = dict()
         LOG.info("Create `~/.mailsender_config` config file.")
     else:
-        with open(PATH) as f: data:str = f.read()
-        if data == "": data = dict() # empty config file
-        else: data:dict = _str2dict(data)
-    return data
+        with open(PATH) as f: config:str = f.read()
+        if config == "": config = dict() # empty config file
+        else: config:dict = _str2dict(config)
+    return config
 
 
 def write_config(data:dict) -> None:
