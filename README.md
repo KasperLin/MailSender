@@ -8,7 +8,7 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 - Easy to customize for your own use case 
 - Render your HTML e-mail by GitHub-style markdown CSS
 
-> If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you can simply checkout [server](#server) & [`server.py`](https://github.com/KasperLin/MailSender/blob/master/mailsender/server.py), which can get you going with the critical part of sending email by Python. 
+> If you know Python's `smtplib` & `email` modules (or their alternatives) pretty well already, you can simply checkout [server](#server), which can get you going with the critical part of sending email by Python. 
 
 # Getting Started
 
@@ -19,18 +19,16 @@ Simply a thin wrap of [`smtplib`](https://docs.python.org/3/library/smtplib.html
 
 ## Basic Usage
 
-Record your account & password in `~/.mailsender_config`
+Record your account & password in `~/.mailsender` for the first time:
 
 ```python
 from mailsender import MailSender
-MailSender(
-	"mymail@somewhere.com", 
-	my_secret_password, 
-    server="tencent",
-)
+MailSender(acc, psw, server="qq")
 ```
 
 Once recorded, you can simply send your e-mail.
+
+> Default to use the first configuration in `~/.mailsender`, but you can also specify which e-mail account to use. 
 
 ```python
 MailSender().send(
@@ -45,7 +43,7 @@ MailSender().send(
 
 ## Configuration
 
-Your e-mail account & password info will be saved to `~/.mailsender_config` , so you don't need to type account & password every time. 
+Your e-mail account & password info will be saved to `~/.mailsender` , so you don't need to type account & password every time. 
 
 The config file can be easily modified by yourself, as long as it follows formats below : 
 

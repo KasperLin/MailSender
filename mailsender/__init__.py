@@ -1,10 +1,15 @@
-import logging
+"Import API, Set Logging Level as Info & Self-Introduce"
 
-import mailsender as ms
-from mailsender.send import MailSender  # entry point
-from mailsender.utility import LOG
+from .core import MailSender
 
-__version__ = "0.2.7.2"
+__version__ = "0.3.0"
 
-LOG.setLevel(logging.INFO)
-LOG.info(f"<<< Mail Sender {ms.__version__} >>>")
+
+def _self_introduce() -> None:
+    "Set Logging Level as Info & Report Current Version"
+    import logging; from .utility import LOG
+    LOG.setLevel(logging.INFO)
+    LOG.info(f"<<< Mail Sender {__version__} >>>")
+
+
+_self_introduce()

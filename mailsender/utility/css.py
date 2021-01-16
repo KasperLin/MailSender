@@ -1,3 +1,5 @@
+"CSS Style Templates to Prettify HTML E-Mail"
+
 HTML_HEAD = """
 <!DOCTYPE html>
 <html>
